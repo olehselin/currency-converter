@@ -48,6 +48,7 @@ function CurrencyConverter() {
             <option value="EUR">EUR</option>
             <option value="GBP">GBP</option>
             <option value="JPY">JPY</option>
+            <option value="UAH">UAH</option>
           </select>
         </div>
 
@@ -61,6 +62,7 @@ function CurrencyConverter() {
             <option value="EUR">EUR</option>
             <option value="GBP">GBP</option>
             <option value="JPY">JPY</option>
+            <option value="UAH">UAH</option>
           </select>
         </div>
 
