@@ -11,6 +11,7 @@ function CurrencyConverter() {
     EUR: 0.92,
     GBP: 0.78,
     JPY: 156.7,
+    UAH: 42.19
   };
 
   const amountInUSD = useMemo(() => {
