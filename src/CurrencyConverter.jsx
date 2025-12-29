@@ -14,23 +14,16 @@ function CurrencyConverter() {
       const data = await response.json();
       console.log(typeof data.conversion_rates);
       setRates(data.conversion_rates);
+
     };
     getData();
   }, []);
 
-  // const convertedCurrencies = {
-  //   USD: 1,
-  //   EUR: 0.92,
-  //   GBP: 0.78,
-  //   JPY: 156.7,
-  //   UAH: 42.19,
-  // };
+  const amountInUSD = useMemo(() => {
+    return Number(amount) / rates[startCurrency];
+  }, [amount, startCurrency]);
 
-  // const amountInUSD = useMemo(() => {
-  //   return Number(amount) / convertedCurrencies[startCurrency];
-  // }, [amount, startCurrency]);
-
-  // const converted = amountInUSD * convertedCurrencies[targetCurrency];
+  const converted = amountInUSD * rates[targetCurrency];
 
   return (
     <div className="page-center">
@@ -79,7 +72,7 @@ function CurrencyConverter() {
         </div>
 
         <div className="result">
-          {/* {converted.toFixed(2)} {targetCurrency} */}
+          {converted.toFixed(2)} {targetCurrency}
         </div>
       </div>
     </div>
