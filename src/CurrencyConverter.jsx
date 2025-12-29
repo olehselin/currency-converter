@@ -6,29 +6,31 @@ function CurrencyConverter() {
   const [amount, setAmount] = useState(1);
   const [startCurrency, setStartCurrency] = useState("USD");
   const [targetCurrency, setTargetCurrency] = useState("EUR");
+  const [rates, setRates] = useState({});
 
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(baseUrl);
       const data = await response.json();
-      console.log(data);
+      console.log(typeof data.conversion_rates);
+      setRates(data.conversion_rates);
     };
-    getData()
+    getData();
   }, []);
 
-  const convertedCurrencies = {
-    USD: 1,
-    EUR: 0.92,
-    GBP: 0.78,
-    JPY: 156.7,
-    UAH: 42.19,
-  };
+  // const convertedCurrencies = {
+  //   USD: 1,
+  //   EUR: 0.92,
+  //   GBP: 0.78,
+  //   JPY: 156.7,
+  //   UAH: 42.19,
+  // };
 
-  const amountInUSD = useMemo(() => {
-    return Number(amount) / convertedCurrencies[startCurrency];
-  }, [amount, startCurrency]);
+  // const amountInUSD = useMemo(() => {
+  //   return Number(amount) / convertedCurrencies[startCurrency];
+  // }, [amount, startCurrency]);
 
-  const converted = amountInUSD * convertedCurrencies[targetCurrency];
+  // const converted = amountInUSD * convertedCurrencies[targetCurrency];
 
   return (
     <div className="page-center">
@@ -54,11 +56,11 @@ function CurrencyConverter() {
             value={startCurrency}
             onChange={(e) => setStartCurrency(e.target.value)}
           >
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="GBP">GBP</option>
-            <option value="JPY">JPY</option>
-            <option value="UAH">UAH</option>
+            {Object.keys(rates).map((cur) => (
+              <option key={cur} value={cur}>
+                {cur}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -68,16 +70,16 @@ function CurrencyConverter() {
             value={targetCurrency}
             onChange={(e) => setTargetCurrency(e.target.value)}
           >
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="GBP">GBP</option>
-            <option value="JPY">JPY</option>
-            <option value="UAH">UAH</option>
+            {Object.keys(rates).map((cur) => (
+              <option key={cur} value={cur}>
+                {cur}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="result">
-          {converted.toFixed(2)} {targetCurrency}
+          {/* {converted.toFixed(2)} {targetCurrency} */}
         </div>
       </div>
     </div>
